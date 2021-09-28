@@ -1,8 +1,11 @@
+#include <QCoreApplication>
 #include <QCommandLineParser>
 #include <QTextStream>
 #include <QFile>
 int main(int argc, char *argv[])
 {
+    QCoreApplication a(argc, argv);
+
     const QString optInput = "input";
     const QList<QCommandLineOption> sCmdOptions = {
         {{"i", optInput}, "input file to upload (single file or directory), you can use it multiple times", optInput}
