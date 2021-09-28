@@ -28,5 +28,5 @@ int main(int argc, char *argv[])
     QFile file(filePath);
     int res = file.open(QIODevice::ReadOnly|QIODevice::Text);
     cout << (res ? "OK\n" : "ERROR...\n") << Qt::flush;
-    return res;
+    return res ? 0 : 1;
 }
