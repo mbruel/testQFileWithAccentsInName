@@ -1,6 +1,8 @@
 #include <QCoreApplication>
-#include <QCommandLineParser>
 #include <iostream>
+#include <cstdio>
+
+#include <QCommandLineParser>
 #include <QTextStream>
 #include <QFile>
 int main(int argc, char *argv[])
@@ -39,13 +41,18 @@ int main(int argc, char *argv[])
          << Qt::flush;
 
     filePath = argv[2];
-    cout << "Try to open file2 " << filePath << "\n" << Qt::flush;
+    cout << "\nTry to open file2 " << filePath << "\n" << Qt::flush;
     QFile file2(filePath);
     res = file.open(QIODevice::ReadOnly|QIODevice::Text);
     cout << (res ? QString("OK\n")
                  : QString("ERROR #%1: %2...\n").arg(file.error()).arg(file.errorString()))
          << Qt::flush;
 
+    FILE *cFile = fopen(argv[2], "r");
+    cout << "\nTry to open cFile using fopen on argv[2]\n" << Qt::flush;
+    cout << (cFile ? "OK\n" : "ERROR\n") << Qt::flush;
+    if (cFile)
+        fclose(cFile);
 
     return res ? 0 : 1;
 }
