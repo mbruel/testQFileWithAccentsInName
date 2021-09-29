@@ -37,5 +37,15 @@ int main(int argc, char *argv[])
     cout << (res ? QString("OK\n")
                  : QString("ERROR #%1: %2...\n").arg(file.error()).arg(file.errorString()))
          << Qt::flush;
+
+    filePath = argv[2];
+    cout << "Try to open file2 " << filePath << "\n" << Qt::flush;
+    QFile file2(filePath);
+    res = file.open(QIODevice::ReadOnly|QIODevice::Text);
+    cout << (res ? QString("OK\n")
+                 : QString("ERROR #%1: %2...\n").arg(file.error()).arg(file.errorString()))
+         << Qt::flush;
+
+
     return res ? 0 : 1;
 }
