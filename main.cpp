@@ -1,5 +1,6 @@
 #include <QCoreApplication>
 #include <QCommandLineParser>
+#include <iostream>
 #include <QTextStream>
 #include <QFile>
 int main(int argc, char *argv[])
@@ -25,6 +26,9 @@ int main(int argc, char *argv[])
         cout << QString("Error syntax... it should be: testQFileWithAccentsInName -i <path_to_file>\n");
         return 1;
     }
+
+    std::cout << "argv[2] using stdio: " << argv[2] << "\n";
+    cout << "argv[2] using QTextStream: " << argv[2] << "\n";
 
     QString filePath = parser.value(optInput);
     cout << "Try to open file " << filePath << "\n" << Qt::flush;
