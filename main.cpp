@@ -30,6 +30,8 @@ int main(int argc, char *argv[])
     cout << "Try to open file " << filePath << "\n" << Qt::flush;
     QFile file(filePath);
     int res = file.open(QIODevice::ReadOnly|QIODevice::Text);
-    cout << (res ? "OK\n" : "ERROR...\n") << Qt::flush;
+    cout << (res ? QString("OK\n")
+                 : QString("ERROR #%1: %2...\n").arg(file.error()).arg(file.errorString()))
+         << Qt::flush;
     return res ? 0 : 1;
 }
