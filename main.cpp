@@ -17,11 +17,7 @@ int main(int argc, char *argv[])
     parser.setApplicationDescription("testQFileWithAccentsInName");
     parser.addOptions(sCmdOptions);
 
-    // Process the actual command line arguments given by the user
-    QStringList args;
-    for (int i = 0; i < argc; ++i)
-        args << argv[i];
-
+    QStringList args = QCoreApplication::arguments();
     QTextStream cout(stdout);
     if (!parser.parse(args) || !parser.isSet(optInput))
     {
@@ -33,15 +29,17 @@ int main(int argc, char *argv[])
     cout << "argv[2] using QTextStream: " << argv[2] << "\n";
 
     QString filePath = parser.value(optInput);
-    cout << "Try to open file " << filePath << "\n" << Qt::flush;
+    cout << "Try to open file using QCommandLineParser: " << filePath << "\n" << Qt::flush;
     QFile file(filePath);
     int res = file.open(QIODevice::ReadOnly|QIODevice::Text);
     cout << (res ? QString("OK\n")
                  : QString("ERROR #%1: %2...\n").arg(file.error()).arg(file.errorString()))
          << Qt::flush;
+    if (res)
+        file.close();
 
-    filePath = argv[2];
-    cout << "\nTry to open file2 " << filePath << "\n" << Qt::flush;
+    filePath = args.at(2);
+    cout << "\nTry to open file using directly QCoreApplication::arguments: " << filePath << "\n" << Qt::flush;
     QFile file2(filePath);
     res = file.open(QIODevice::ReadOnly|QIODevice::Text);
     cout << (res ? QString("OK\n")
